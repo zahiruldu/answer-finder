@@ -1,18 +1,19 @@
 import fs from 'fs';
 import stringSimilarity from 'string-similarity';
+import { IAnswers, IQuestions } from './service.dto';
 
 class AnswerFinder {
-  contents;
-  questions;
-  answers;
+  contents: string;
+  questions: IQuestions[];
+  answers: string;
 
-  constructor(filePath, lineOfParagraph, lineOfQuestions, lineOfAnswers) {
+  constructor(filePath: string, lineOfParagraph: number, lineOfQuestions: number[], lineOfAnswers: number) {
     try {
       // read contents of the file
       const data = fs.readFileSync(filePath, 'UTF-8');
 
       // split the contents by new line
-      const lines = data.split(/\r?\n/);
+      const lines: string[] = data.split(/\r?\n/);
       this.contents = lines[lineOfParagraph - 1];
       let [start, end] = lineOfQuestions;
       this.questions = lines.slice(start - 1, end);
@@ -22,24 +23,24 @@ class AnswerFinder {
     }
   }
 
-  getParagraph() {
+  getParagraph(): string {
     return this.contents;
   }
 
-  getQuestions() {
+  getQuestions(): IQuestions[] {
     return this.questions;
   }
 
-  getAnswers() {
+  getAnswers(): IAnswers[] {
     return this.answers.split(';');
   }
 
-  matchAnswer(q, toMatch) {
+  matchAnswer(q: IQuestions, toMatch: IAnswers[]): string {
     const result = stringSimilarity.findBestMatch(q, toMatch);
     return result.bestMatch.target;
   }
 
-  getResult() {
+  getResult(): IAnswers[] {
     const answers = this.getAnswers();
     const qs = this.getQuestions();
     const paragraph = this.getParagraph().split('.');
