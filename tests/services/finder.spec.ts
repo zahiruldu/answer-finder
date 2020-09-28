@@ -1,7 +1,7 @@
 import AnswerFinder from '../../src/services/finder.service';
 
 describe('Service', () => {
-  let filepath = 'test.txt';
+  let filepath = 'src/assets/test.txt';
   let service;
 
   beforeAll(() => {
