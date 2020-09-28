@@ -1,18 +1,23 @@
 import fs from 'fs';
 import stringSimilarity from 'string-similarity';
-import { IAnswers, IQuestions } from './service.dto';
+import { IAnswers, IQuestions } from './finder.interface';
 
 class AnswerFinder {
   contents: string;
   questions: IQuestions[];
   answers: string;
 
+  /**
+   * @desc this class contains functions for finder class to match best answers
+   * @param {string} filePath {string} path to the file. e.g. 'test.txt'
+   * @param {number} lineOfParagraph {number} Line number of the paragraph part in file
+   * @param {array} lineOfQuestions [2,6] range of line to indicate question in the file
+   * @param {number} lineOfAnswers {number} Line number of the answers part in file
+   * @return {new AnswerFinder} new instance of AnswerFinder class
+   */
   constructor(filePath: string, lineOfParagraph: number, lineOfQuestions: number[], lineOfAnswers: number) {
     try {
-      // read contents of the file
       const data = fs.readFileSync(filePath, 'UTF-8');
-
-      // split the contents by new line
       const lines: string[] = data.split(/\r?\n/);
       this.contents = lines[lineOfParagraph - 1];
       let [start, end] = lineOfQuestions;
@@ -23,24 +28,46 @@ class AnswerFinder {
     }
   }
 
+  /**
+   * Return the paragraph content of the file
+   * @returns string
+   */
   getParagraph(): string {
     return this.contents;
   }
 
+  /**
+   * Return the questions of the file
+   * @returns array of string
+   */
   getQuestions(): IQuestions[] {
     return this.questions;
   }
 
+  /**
+   * Return the answers of the file
+   * @returns array of string
+   */
   getAnswers(): IAnswers[] {
     return this.answers.split(';');
   }
 
+  /**
+   * Return the matching answer of an array
+   * @param q question
+   * @param toMatch Array of values to match and find best matching value
+   * @returns string
+   */
   matchAnswer(q: IQuestions, toMatch: IAnswers[]): string {
     const result = stringSimilarity.findBestMatch(q, toMatch);
     return result.bestMatch.target;
   }
 
-  getResult(): IAnswers[] {
+  /**
+   * Return all correct answers according to the order of the questions
+   * @returns string
+   */
+  getResult(): IAnswers {
     const answers = this.getAnswers();
     const qs = this.getQuestions();
     const paragraph = this.getParagraph().split('.');
@@ -53,7 +80,7 @@ class AnswerFinder {
       result.push(answer);
     }
 
-    return result;
+    return result.join('\n');
   }
 }
 

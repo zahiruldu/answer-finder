@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
+    "@types/jest": "^23.3.8",
     "@types/node": "^10.14.8",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
