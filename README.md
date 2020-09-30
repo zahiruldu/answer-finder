@@ -1,10 +1,10 @@
 ﻿# answer-finder
 
-Answer finder
+Answer finder can find a best suited answer for a question and print all answers in the order of questions. It follows a pattern for input file state in the AnswerFinder class.
 
 [![Run on Repl.it](https://repl.it/badge/github/zahiruldu/answer-finder)](https://repl.it/github/zahiruldu/answer-finder)
 ### Installation? ###
-To run the Api application follow the following steps. Be sure you are using Nodejs latest LTS.
+To run the application follow the following steps. Be sure you are using Nodejs latest LTS.
 
 * Configuration
 ```
