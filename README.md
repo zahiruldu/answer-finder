@@ -1,6 +1,6 @@
 ﻿# answer-finder
 
-Answer finder can find a best suited answer for a question and print all answers in the order of questions. It follows a pattern for input file state in the AnswerFinder class.
+Answer finder can find a best suited answer for a question and print all answers in the order of questions. It follows a pattern for input file stated in the AnswerFinder class.
 
 [![Run on Repl.it](https://repl.it/badge/github/zahiruldu/answer-finder)](https://repl.it/github/zahiruldu/answer-finder)
 ### Installation? ###
