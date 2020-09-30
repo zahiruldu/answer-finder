@@ -2,6 +2,18 @@ import fs from 'fs';
 import stringSimilarity from 'string-similarity';
 import { IAnswers, IQuestions } from './finder.interface';
 
+/**
+ * AnswerFinder class can find a best suited answer for a question and print all answers
+ * in the order of questions.
+ * This 'AnswerFinder' class follows a particular patten to process its input.
+ * @pattern {
+ * 1. One line will hold total paragraph.
+   2. One sequential range of lines will hold all questions.
+   3. One line will hold all answers seperated by semicolon (;)
+ * }
+ * So to initialise the constructor, Four params must be provided following order.
+ * e.g. new AnswerFinder(filepath,1,[2,6],7) Here @param1 = filepath, @param2 =lineOfParagraph, @param3 =lineOfQuestions, @param4 = lineOfAnswers  
+ */
 class AnswerFinder {
   contents: string;
   questions: IQuestions[];
